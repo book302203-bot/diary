@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>สมุดคนที่ฉันรัก</title>
+  <style>
+    body {
+      margin: 0;
+      background: #fdeff4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: sans-serif;
+    }
+    .login, .book {
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 320px;
+    }
+    .book { display: none; }
+    input {
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 100%;
+      margin-top: 10px;
+    }
+    button {
+      margin-top: 10px;
+      background: #ff7eb3;
+      border: none;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+    .page { display: none; }
+    .page.active { display: block; }
+    img, video {
+      max-width: 100%;
+      max-height: 260px;
+      border-radius: 12px;
+    }
+    .controls {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+<div class="login" id="login">
+  <h2>ใส่รหัสเพื่อเข้า 💗</h2>
+  <input type="password" id="password" placeholder="ใส่รหัส 6 หลัก">
+  <button onclick="check()">เข้าเว็บ</button>
+  <div id="error" style="color:red; margin-top:8px;"></div>
+</div>
+
+<div class="book" id="book">
+  <div class="page active"><img src="img1.jpg"></div>
+  <div class="page"><img src="img2.jpg"></div>
+  <div class="page"><img src="img3.jpg"></div>
+  <div class="page"><img src="img4.jpg"></div>
+  <div class="page"><img src="img5.jpg"></div>
+  <div class="page"><img src="img6.jpg"></div>
+  <div class="page"><img src="img7.jpg"></div>
+
+  <div class="page"><video src="vid1.mp4" controls></video></div>
+  <div class="page"><video src="vid2.mp4" controls></video></div>
+  <div class="page"><video src="vid3.mp4" controls></video></div>
+  <div class="page"><video src="vid4.mp4" controls></video></div>
+  <div class="page"><video src="vid5.mp4" controls></video></div>
+
+  <div class="controls">
+    <button onclick="prev()">◀ ก่อนหน้า</button>
+    <button onclick="next()">ถัดไป ▶</button>
+  </div>
+</div>
+
+<script>
+  const correctPassword = "241268";
+  const pages = document.querySelectorAll('.page');
+  let current = 0;
+
+  function check() {
+    const input = document.getElementById('password').value;
+    if (input === correctPassword) {
+      document.getElementById('login').style.display = "none";
+      document.getElementById('book').style.display = "block";
+    } else {
+      document.getElementById('error').innerText = "รหัสไม่ถูกต้อง 😢";
+    }
+  }
+
+  function show(index) {
+    pages.forEach(p => p.classList.remove('active'));
+    pages[index].classList.add('active');
+  }
+
+  function next() {
+    if (current < pages.length - 1) {
+      current++;
+      show(current);
+    }
+  }
+
+  function prev() {
+    if (current > 0) {
+      current--;
+      show(current);
+    }
+  }
+</script>
+
+</body>
+</html>
